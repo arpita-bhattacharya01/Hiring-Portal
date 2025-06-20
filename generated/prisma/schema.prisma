@@ -1,0 +1,207 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int         @id @default(autoincrement())
+  fullName   String
+  email      String      @unique
+  password   String
+  joinDate   DateTime    @default(now())
+  jobapplied Int?
+  status     String      @default("active")
+  mobile     String
+  workStatus String
+  heading    String?
+  keySkills  String?
+  education  Education[]
+  projects   Project[]
+
+  personalDetails PersonalDetails?
+  appliedjob      appliedjob[]
+}
+
+model appliedjob {
+  id Int @id @default(autoincrement())
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  jobs   Jobs @relation(fields: [jobsId], references: [id])
+  jobsId Int
+
+  firstName      String
+  lastName       String
+  email          String
+  phone          String
+  position       String
+  city           String
+  state          String
+  experience     String
+  education      String
+  degree         String
+  university     String
+  graduationYear Int
+  resume         String
+  photo          String
+  coverLetter    String
+  portfolio      String
+  skills         String
+  availability   String
+  salary         Int
+  appliedAt      DateTime @default(now())
+  status         String   @default("Applied")
+}
+
+model admin {
+  id            Int             @id @default(autoincrement())
+  name          String
+  email         String          @unique
+  password      String
+  role          String?
+  AdminActivity AdminActivity[]
+}
+
+model AdminActivity {
+  id         Int      @id @default(autoincrement())
+  adminId    Int
+  action     String
+  targetType String
+  targetId   Int
+  timestamp  DateTime @default(now())
+  admin      admin    @relation(fields: [adminId], references: [id])
+}
+
+model PersonalDetails {
+  id               Int        @id @default(autoincrement())
+  userId           Int        @unique // ✅ Add @unique here
+  gender           String
+  maritalStatus    String
+  dob              String
+  category         String
+  differentlyAbled String
+  careerBreak      String
+  address          String
+  hometown         String
+  pincode          String
+  languages        Language[] // relation
+  user             User       @relation(fields: [userId], references: [id])
+}
+
+model Language {
+  id                Int             @id @default(autoincrement())
+  personalDetailsId Int
+  language          String
+  proficiency       String
+  read              Boolean
+  write             Boolean
+  speak             Boolean
+  personalDetails   PersonalDetails @relation(fields: [personalDetailsId], references: [id])
+}
+
+model Education {
+  id             Int    @id @default(autoincrement())
+  education      String
+  university     String
+  course         String
+  specialization String
+  startingYear   String
+  endingYear     String
+  user           User   @relation(fields: [userId], references: [id])
+  userId         Int
+}
+
+model Project {
+  id     Int  @id @default(autoincrement())
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  projectTitle      String
+  client            String?
+  projectEmployment String?
+  projectStatus     String?
+  startYear         String?
+  startMonth        String?
+  endYear           String?
+  endMonth          String?
+  projectSite       String?
+  employmentNature  String?
+  teamSize          Int?
+  role              String?
+  skills            String?
+}
+
+model Employer {
+  id               Int     @id @default(autoincrement())
+  officialEmail    String  @unique
+  loginEmail       String  @unique
+  fullName         String?
+  password         String?
+  companyname      String?
+  hiringfor        String?
+  industry         String?
+  employes         Int?
+  designation      String?
+  reportingmanager String?
+  mobile           String?
+  companyType      String?
+  industryType     String?
+  contactPerson    String?
+  alias            String?
+  website          String?
+  classified       String?
+  noOfEmployes     String?
+  aboutus          String?
+  discription      String?
+  phone1           String?
+  phone2           String?
+  fax              String?
+  tan              String?
+  linkedin         String?
+  facebook         String?
+  twitter          String?
+  others           String?
+
+  pincode        Int?
+  joinDate       DateTime @default(now())
+  companyaddress String?
+  status         String   @default("pending")
+
+  jobs Jobs[]
+}
+
+model Jobs {
+  id               Int      @id @default(autoincrement())
+  jobTitle         String
+  companyName      String?
+  location         String
+  salary           String
+  experience       Int
+  jobType          String
+  skills           String
+  jobDiscription   String   @db.Text
+  requirement      String   @db.Text
+  responsibilities String?  @db.Text
+  benifit          String
+  posted           DateTime @default(now())
+  openings         Int
+  status           String   @default("Pending")
+  Department       String
+
+  employerId Int
+  employer   Employer @relation(fields: [employerId], references: [id])
+
+  appliedjob appliedjob[]
+}
