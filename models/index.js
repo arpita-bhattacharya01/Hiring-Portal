@@ -37,7 +37,7 @@ const testConnection = async () => {
     
     // Try to create database if it doesn't exist
     try {
-      await sequelizeWithoutDB.query(`CREATE DATABASE IF NOT EXISTS \`hiring_db\``);
+      await sequelizeWithoutDB.query(`CREATE DATABASE IF NOT EXISTS \`hiringdb\``);
       console.log(`Database 'job_portal_db' is ready`);
     } catch (dbError) {
       console.log('Database creation error (might already exist):', dbError.message);

@@ -687,8 +687,8 @@ app.post('/reportaproblem', upload.single('file'), async (req, res) => {
   const file = req.file;
 
   const mailOptions = {
-    from: 'amank87025@gmail.com',
-    to: 'amank87025@gmail.com',
+    from: 'info@gauravmudgal.com',
+    to: 'info@gauravmudgal.com',
     subject: `New Problem Reported: ${areaOfConcern}`,
     text: `Name: ${name}
            Email: ${email}
@@ -802,7 +802,7 @@ app.post('/forgot-password', async (req, res) => {
 
     // Send OTP email
     await transporter.sendMail({
-      from: 'amank87025@gmail.com',
+      from: 'info@gauravmudgal.com',
       to: email,
       subject: 'Your OTP Code',
       text: `Your OTP is ${otp}. It will expire in 5 minutes.`,
@@ -831,7 +831,7 @@ app.post('/send-otp', async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: 'amank87025@gmail.com',
+      from: 'info@gauravmudgal.com',
       to: email,
       subject: 'Your OTP Code',
       text: `Your OTP is ${otp}. It will expire in 5 minutes.`,
@@ -847,8 +847,8 @@ app.post('/send-callback-email', async (req, res) => {
   const { fullname, email, mobile, hiringType, designation, companyname, city } = req.body;
   try {
     await transporter.sendMail({
-      from: 'amank87025@gmail.com',
-      to: 'amank87025@gmail.com',
+      from: 'info@gauravmudgal.com',
+      to: 'info@gauravmudgal.com',
       subject: 'New Callback Request Received',
       html: `
         <h3>New Callback Request</h3>
