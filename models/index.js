@@ -3,13 +3,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Create Sequelize instance with database
+console.log("DB_NAME:", process.env.DB_NAME);
+console.log("DB_USER:", process.env.DB_USER);
+console.log("DB_PASSWORD:", process.env.DB_PASSWORD);
 const sequelize = new Sequelize(
-  process.env.DB_NAME, 
-  console.log(process.env.DB_NAME),        // database name
+  process.env.DB_NAME,     
   process.env.DB_USER, 
-  console.log(process.env.DB_USER),        // username
   process.env.DB_PASSWORD,
-  console.log(process.env.DB_PASSWORD),     // password
+ 
   {
     host: process.env.DB_HOST, // DB host
     port: Number(process.env.DB_PORT) || 3306,
