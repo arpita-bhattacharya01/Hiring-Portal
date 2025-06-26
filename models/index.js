@@ -2,40 +2,27 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-// Create Sequelize instance with database
-console.log("DB_NAME:", process.env.DB_NAME);
-console.log("DB_USER:", process.env.DB_USER);
-console.log("DB_PASSWORD:", process.env.DB_PASSWORD);
-
 import { Sequelize } from 'sequelize';
-const sequelize = new Sequelize(
-  process.env.DB_NAME,     
-  process.env.DB_USER, 
-  process.env.DB_PASSWORD,
- 
-  {
-    host: process.env.DB_HOST, // DB host
-    port: Number(process.env.DB_PORT) || 3306,
-    dialect: 'mysql',
-    logging: false,
-    pool: {
-      max: 10,
-      min: 2,
-      acquire: 30000,
-      idle: 10000,
-    },
-    dialectOptions: {
-      connectTimeout: 60000,
-      acquireTimeout: 60000,
-      timeout: 60000,
-      keepAlive: true,
-    },
-    retry: {
-      max: 3,
-    },
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'mysql',
+  logging: false,
+  pool: {
+    max: 10,
+    min: 2,
+    acquire: 30000, // How long Sequelize waits to get a DB connection
+    idle: 10000,
+    handleDisconnects: true
+  },
+  dialectOptions: {
+    connectTimeout: 60000, // Valid - how long to wait for initial DB connection
+    keepAlive: true,
+    reconnect: true // Not standard, may or may not be effective based on MySQL2 version
+  },
+  retry: {
+    max: 3,
+    timeout: 10000
   }
-);
-
+});
 
 // Test the connection and create database if needed
 const testConnection = async () => {
