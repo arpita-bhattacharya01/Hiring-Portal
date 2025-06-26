@@ -130,8 +130,8 @@ app.post('/reset-password', async (req, res) => {
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'info@gauravmudgal.com',
-    pass: 'c5NdkovF=F8=',
+    user: '01arpitabhattacharya@gmail.com',
+    pass: 'ukqambtlaragvgmk',
   },
 });
 
@@ -687,8 +687,8 @@ app.post('/reportaproblem', upload.single('file'), async (req, res) => {
   const file = req.file;
 
   const mailOptions = {
-    from: 'info@gauravmudgal.com',
-    to: 'info@gauravmudgal.com',
+    from: '01arpitabhattacharya@gmail.com',
+    to: '01arpitabhattacharya@gmail.com',
     subject: `New Problem Reported: ${areaOfConcern}`,
     text: `Name: ${name}
            Email: ${email}
@@ -802,7 +802,7 @@ app.post('/forgot-password', async (req, res) => {
 
     // Send OTP email
     await transporter.sendMail({
-      from: 'info@gauravmudgal.com',
+      from: '01arpitabhattacharya@gmail.com',
       to: email,
       subject: 'Your OTP Code',
       text: `Your OTP is ${otp}. It will expire in 5 minutes.`,
@@ -831,7 +831,7 @@ app.post('/send-otp', async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: 'info@gauravmudgal.com',
+      from: '01arpitabhattacharya@gmail.com',
       to: email,
       subject: 'Your OTP Code',
       text: `Your OTP is ${otp}. It will expire in 5 minutes.`,
@@ -847,8 +847,8 @@ app.post('/send-callback-email', async (req, res) => {
   const { fullname, email, mobile, hiringType, designation, companyname, city } = req.body;
   try {
     await transporter.sendMail({
-      from: 'info@gauravmudgal.com',
-      to: 'info@gauravmudgal.com',
+      from: '01arpitabhattacharya@gmail.com',
+      to: '01arpitabhattacharya@gmail.com',
       subject: 'New Callback Request Received',
       html: `
         <h3>New Callback Request</h3>
