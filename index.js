@@ -9,7 +9,11 @@ import nodemailer from 'nodemailer';
 import fs from 'fs';
 import multer from 'multer';
 
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const _dirname = path.dirname(_filename);
 
 const SECRET_KEY = process.env.SECRET_KEY;
 const otpStore = {};
@@ -36,6 +40,12 @@ const upload = multer({ dest: 'uploads/' });
 
 app.use(cors());
 app.use(express.json());
+
+app.use(express.static(path.resolve(__dirname, "../frontend"))); 
+
+app.get(/^(?!\/api).*/, (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../frontend/dist/index.html"));
+});
 
 // Global error handler to prevent crashes
 process.on('uncaughtException', (error) => {
