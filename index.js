@@ -11,6 +11,12 @@ import multer from 'multer';
 
 import path from 'path';
 import { fileURLToPath } from 'url';
+<<<<<<< HEAD
+=======
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+>>>>>>> 06815a5f6847aab5bdb311961c3f3d843297599a
 
 const __filename = fileURLToPath(import.meta.url);
 const _dirname = path.dirname(_filename);
@@ -35,14 +41,16 @@ import {
   AppliedJob
 } from './models/index.js';
 
-
 const upload = multer({ dest: 'uploads/' });
 
 app.use(cors());
 app.use(express.json());
 
 app.use(express.static(path.resolve(__dirname, "../frontend"))); 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 06815a5f6847aab5bdb311961c3f3d843297599a
 app.get(/^(?!\/api).*/, (req, res) => {
   res.sendFile(path.resolve(__dirname, "../frontend/dist/index.html"));
 });
