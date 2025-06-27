@@ -41,9 +41,9 @@ const upload = multer({ dest: 'uploads/' });
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(path.resolve(__dirname, "dist"))); 
+app.use(express.static(path.resolve(__dirname, "../frontend"))); 
 app.get(/^(?!\/api).*/, (req, res) => {
-  res.sendFile(path.resolve(__dirname, "dist", "index.html"));
+  res.sendFile(path.resolve(__dirname, "../frontend/dist/index.html"));
 });
 
 // Global error handler to prevent crashes
